@@ -1,0 +1,24 @@
+{
+    "appium": {
+        "server_url": "http://localhost:4723",
+        "device_name": "emulator-5554",
+        "platform_version": "17",
+        "app_package": "com.google.android.youtube",
+        "app_activity": ".app.honeycomb.Shell$HomeActivity"
+    },
+    "browser": {
+        "name": "chrome",
+        "headless": false
+    },
+    "search": {
+        "query": "Mobile review youtube",
+        "results_count": 3
+    },
+    "flask": {
+        "host": "0.0.0.0",
+        "port": 5000,
+        "debug": false
+    },
+    "explicit_wait": 20,
+    "screenshots_dir": "screenshots"
+}
