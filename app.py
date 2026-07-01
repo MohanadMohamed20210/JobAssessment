@@ -15,6 +15,7 @@ _idempotency_cache: dict = {}
 
 @app.route("/reviews", methods=["GET"])
 def reviews():
+    Config.reload()
     idempotency_id = request.headers.get("Idempotency-Id")
     if idempotency_id and idempotency_id in _idempotency_cache:
         return jsonify(_idempotency_cache[idempotency_id])

@@ -1,7 +1,14 @@
 import json
 from pathlib import Path
 
-_cfg = json.loads((Path(__file__).parent / "config.json").read_text())
+_CONFIG_PATH = Path(__file__).parent / "config.json"
+
+
+def _load_cfg() -> dict:
+    return json.loads(_CONFIG_PATH.read_text(encoding="utf-8"))
+
+
+_cfg = _load_cfg()
 
 
 class Config:
@@ -23,3 +30,22 @@ class Config:
 
     explicit_wait: int = _cfg["explicit_wait"]
     screenshots_dir: str = _cfg["screenshots_dir"]
+
+    @classmethod
+    def reload(cls) -> None:
+        """Re-read config.json and update all class attributes."""
+        cfg = _load_cfg()
+        cls.appium_url = cfg["appium"]["server_url"]
+        cls.device_name = cfg["appium"]["device_name"]
+        cls.platform_version = cfg["appium"]["platform_version"]
+        cls.app_package = cfg["appium"]["app_package"]
+        cls.app_activity = cfg["appium"]["app_activity"]
+        cls.browser = cfg["browser"]["name"]
+        cls.headless = cfg["browser"]["headless"]
+        cls.search_query = cfg["search"]["query"]
+        cls.results_count = cfg["search"]["results_count"]
+        cls.host = cfg["flask"]["host"]
+        cls.port = cfg["flask"]["port"]
+        cls.debug = cfg["flask"]["debug"]
+        cls.explicit_wait = cfg["explicit_wait"]
+        cls.screenshots_dir = cfg["screenshots_dir"]
