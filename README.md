@@ -6,6 +6,8 @@ A short video demonstrating the complete end-to-end workflow and explaining the 
 
 https://drive.google.com/file/d/1Bm6XjHd-7rhtyFgRgw8OlSEcy15uSoYh/view?usp=sharing
 
+> **Note:** Idempotency-Id support was added after the video was recorded and is not shown in the demo.
+
 ---
 
 A Flask API that searches Google for YouTube mobile-review videos, opens each result in the YouTube Android app via Appium, extracts the video's author, description, and URL, and returns them as JSON.
@@ -58,8 +60,10 @@ python app.py
 Call the endpoint:
 
 ```bash
-curl http://localhost:5000/reviews
+curl -H "Idempotency-Id: abc123" http://localhost:5000/reviews
 ```
+
+> **Note:** Change the `Idempotency-Id` value on every new request. Reusing the same ID returns the cached response and skips the workflow.
 
 ---
 
